@@ -6,8 +6,15 @@ import java.util.List;
 
 public interface RouteRepository {
     List<Route> getAllRoutes();
+
     List<Route> getRoutesById(long id);
+
+    List<Route> getAllRoute();
+
+    List<Route> getRouteById(long id);
+
     boolean addRoute(Route route);
     boolean updateRoute(long id, Route route);
-    boolean patcheRoute(long id, String newRoutename);
+    boolean patchRoute(long id, String newRoutename);
+    boolean deleteRoute(long id);
 }
