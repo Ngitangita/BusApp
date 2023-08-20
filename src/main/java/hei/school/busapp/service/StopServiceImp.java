@@ -1,5 +1,6 @@
 package hei.school.busapp.service;
 
+
 import hei.school.busapp.entity.Stop;
 import hei.school.busapp.repository.StopRepositoryImp;
 import lombok.NoArgsConstructor;
@@ -12,62 +13,69 @@ import java.util.Map;
 @NoArgsConstructor
 @Service
 public class StopServiceImp implements StopService {
-
     private StopRepositoryImp stopRepositoryImp;
 
     @Autowired
-    public StopServiceImp(StopRepositoryImp stopRepositoryImp){
-        this.stopRepositoryImp = stopRepositoryImp;
+    public StopServiceImp(StopRepositoryImp stopRepositoryImp){this.stopRepositoryImp = stopRepositoryImp;}
+
+    @Override
+    public List<Stop> getAllStop(){
+        return stopRepositoryImp
+                .getAllStop ();
     }
 
     @Override
-    public List<Stop> getAllStops(){
+    public List<Stop> getStopById(long id){
         return stopRepositoryImp
-                .getAllStops ();
-    }
-
-    @Override
-    public List<Stop> getStopsById(long id){
-        return stopRepositoryImp
-                .getStopsById ( id );
+                .getStopById ( id );
     }
 
     @Override
     public boolean addStop(Stop stop){
-            try {
-                stopRepositoryImp.addStop(stop);
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
+        try {
+            stopRepositoryImp.addStop ( stop );
+            return true;
+        } catch ( Exception e ) {
+            throw new RuntimeException ( e );
+        }
     }
 
     @Override
     public boolean updateStop(long id, Stop stop){
         try {
-            if (!stopRepositoryImp.getStopsById (id ).isEmpty ()){
-                stopRepositoryImp.updateStop (id, stop);
+            if (!stopRepositoryImp.getStopById ( id ).isEmpty ()){
+                stopRepositoryImp.updateStop ( id, stop );
                 return true;
             }
             return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        } catch ( Exception e ) {
+            throw new RuntimeException ( e );
         }
     }
 
     @Override
-    public boolean patchStop(long id, Map<String, String> newStopname){
+    public boolean patchStop(long id, Map<String, String> newstopname){
         try {
-           if (! stopRepositoryImp.getStopsById ( id ).isEmpty ()){
-               stopRepositoryImp.patchStop( id, newStopname.get ( "stopname"));
-               return true;
-           }
+            if (!stopRepositoryImp.getStopById ( id ).isEmpty ()){
+                stopRepositoryImp.patchStop ( id, newstopname.get ( "stopname" ) );
+                return true;
+            }
             return false;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch ( Exception e ) {
+            throw new RuntimeException ( e );
+        }
+    }
+
+    @Override
+    public boolean deleteStop(long id){
+        try {
+            if (!stopRepositoryImp.getStopById ( id ).isEmpty ()){
+                stopRepositoryImp.deleteStop ( id );
+                return true;
+            }
             return false;
+        } catch ( Exception e ) {
+            throw new RuntimeException ( e );
         }
     }
 }

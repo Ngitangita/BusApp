@@ -6,9 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 public interface StopService {
-    List<Stop> getAllStops();
-    List<Stop> getStopsById(long id);
+    List<Stop> getAllStop();
+
+    List<Stop> getStopById(long id);
+
     boolean addStop(Stop stop);
+
     boolean updateStop(long id, Stop stop);
-    boolean patchStop(long id, Map<String, String> newStopname);
+
+    boolean patchStop(long id, Map<String, String> newstopname);
+
+    boolean deleteStop(long id);
 }

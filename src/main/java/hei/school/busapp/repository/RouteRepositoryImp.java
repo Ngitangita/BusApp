@@ -21,16 +21,6 @@ public class RouteRepositoryImp implements RouteRepository{
     Connection connection;
 
     @Override
-    public List<Route> getAllRoutes(){
-        return null;
-    }
-
-    @Override
-    public List<Route> getRoutesById(long id){
-        return null;
-    }
-
-    @Override
     public List<Route> getAllRoute(){
         List<Route> route = new ArrayList<> ();
         try {
@@ -138,9 +128,9 @@ public class RouteRepositoryImp implements RouteRepository{
     @Override
     public boolean deleteRoute(long id){
         try {
-            connection = DatabaseConfig.getInstance ().getConnection ();
+            connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
-                    "DELETE FROM route WHERE id=?"
+                    "DELETE FROM route WHERE id = ?"
             );
             preparedStatement.setLong ( 1, id );
             if (preparedStatement.executeUpdate () == 1){
@@ -152,4 +142,6 @@ public class RouteRepositoryImp implements RouteRepository{
             throw new RuntimeException ( e );
         }
     }
+
+
 }
