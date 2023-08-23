@@ -2,14 +2,17 @@ package hei.school.busapp.entity;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
 @AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class BusLine {
     private long id;
     private String linenumber;
-    private String linename;
+    private List<Route> routes;
+    private List<Stop> stops;
 }
 

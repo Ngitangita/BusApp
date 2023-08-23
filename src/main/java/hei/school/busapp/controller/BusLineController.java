@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/busline")
+@RequestMapping("/busLine")
 public class BusLineController {
     private final BusLineServiceImp busLineServiceImp;
 
@@ -35,23 +35,13 @@ public class BusLineController {
         if (success){
             return "BusLine added successfully";
         }else {
-           return  "Failed to add BusLine";
+            return "Failed to add busLine";
         }
     }
 
     @PutMapping("/update/put/{id}")
     public String updateBusLine(@PathVariable long id, @RequestBody BusLine newBusLine){
         boolean success = busLineServiceImp.updateBusLine ( id, newBusLine);
-        if (success){
-            return "BusLine updated successfully";
-        }else {
-            return "Failed to updated BusLine";
-        }
-    }
-
-    @PatchMapping("/update/patch/{id}")
-    public String patchBusLine(@PathVariable long id, @RequestBody Map<String, String> newBusLine){
-        boolean success = busLineServiceImp.patchBusLine ( id, newBusLine);
         if (success){
             return "BusLine updated successfully";
         }else {

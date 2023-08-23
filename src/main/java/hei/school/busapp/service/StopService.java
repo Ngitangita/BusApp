@@ -14,7 +14,5 @@ public interface StopService {
 
     boolean updateStop(long id, Stop stop);
 
-    boolean patchStop(long id, Map<String, String> newstopname);
-
     boolean deleteStop(long id);
 }

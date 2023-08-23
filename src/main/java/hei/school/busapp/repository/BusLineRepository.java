@@ -13,7 +13,5 @@ public interface BusLineRepository {
 
     boolean updateBusLine(long id, BusLine busLine);
 
-    boolean patchBusLine(long id, String newBusLinename);
-
     boolean deleteBusLine(long id);
 }

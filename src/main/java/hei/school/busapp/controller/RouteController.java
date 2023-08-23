@@ -2,7 +2,6 @@ package hei.school.busapp.controller;
 
 import hei.school.busapp.entity.Route;
 import hei.school.busapp.service.RouteServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,13 +13,12 @@ import java.util.Map;
 public class RouteController {
     private final RouteServiceImp routeServiceImp;
 
-    @Autowired
     public RouteController(RouteServiceImp routeServiceImp){
         this.routeServiceImp = routeServiceImp;
     }
 
     @GetMapping("/")
-    public List<Route> getallRoute() {
+    public List<Route> getAllRoute() {
         return routeServiceImp
                 .getAllRoute ();
     }
@@ -51,19 +49,9 @@ public class RouteController {
         }
     }
 
-    @PatchMapping("/update/patch/{id}")
-    public String patchRoute(@PathVariable long id,@RequestBody Map<String, String> newRoute){
-        boolean success = routeServiceImp.patchRoute ( id, newRoute );
-        if (success) {
-            return "Route updated successfully";
-        } else {
-            return"Failed to updated route";
-        }
-    }
-
     @DeleteMapping("/delete/{id}")
     public String deleteRoute(@PathVariable long id){
-        boolean success = routeServiceImp.deletRoute ( id );
+        boolean success = routeServiceImp.deleteRoute ( id );
         if (success) {
             return "Route delete successfully";
         } else {

@@ -2,7 +2,6 @@ package hei.school.busapp.repository;
 
 import hei.school.busapp.connection.DatabaseConfig;
 import hei.school.busapp.entity.Stop;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -12,12 +11,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @Repository
 public class StopRepositoryImp implements StopRepository{
-    PreparedStatement preparedStatement;
-    ResultSet resultSet;
-    Connection connection;
+   private PreparedStatement preparedStatement;
+   private ResultSet resultSet;
+   private Connection connection;
+   private StopRouteRepository repository;
+   private StopBusLineRepository stopBusLineRepository;
+
+    public StopRepositoryImp(StopRouteRepository repository, StopBusLineRepository stopBusLineRepository){
+
+        this.repository = repository;
+        this.stopBusLineRepository = stopBusLineRepository;
+    }
 
     @Override
     public List<Stop> getAllStop(){
@@ -34,7 +40,9 @@ public class StopRepositoryImp implements StopRepository{
                                 resultSet.getLong ( "id"),
                                 resultSet.getString ( "stopName"),
                                 resultSet.getFloat ( "longitude"),
-                                resultSet.getFloat ( "latitude")
+                                resultSet.getFloat ( "latitude"),
+                                this.repository.findRouteWithStopById ( resultSet.getLong ( "id" ) ),
+                                this.stopBusLineRepository.finBusLineWithStopById ( resultSet.getLong ( "id") )
                         )
                 );
             }
@@ -60,7 +68,9 @@ public class StopRepositoryImp implements StopRepository{
                                 resultSet.getLong ( "id"),
                                 resultSet.getString ( "stopName"),
                                 resultSet.getFloat ( "longitude"),
-                                resultSet.getFloat ( "latitude")
+                                resultSet.getFloat ( "latitude"),
+                                this.repository.findRouteWithStopById ( resultSet.getLong ( "id" ) ),
+                                this.stopBusLineRepository.finBusLineWithStopById ( resultSet.getLong ( "id") )
                         )
                 );
             }
@@ -107,26 +117,6 @@ public class StopRepositoryImp implements StopRepository{
                 return true;
             }
             return false;
-        } catch ( SQLException e ) {
-            throw new RuntimeException ( e );
-        }
-    }
-
-    @Override
-    public boolean patchStop(long id, String newStopname){
-        try {
-            connection = DatabaseConfig.getInstance ( ).getConnection ( );
-            preparedStatement = connection.prepareStatement (
-                    "UPDATE Stop set stopName=? WHERE id=?"
-            );
-            preparedStatement.setString ( 1, newStopname );
-            preparedStatement.setLong ( 2, id );
-            int success = preparedStatement.executeUpdate ( );
-            if (success == 1){
-                return true;
-            }else {
-                return false;
-            }
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }

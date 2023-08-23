@@ -1,0 +1,10 @@
+insert into StopRoute (id, route_id, stop_id) values (1, 6, 9);
+insert into StopRoute (id, route_id, stop_id) values (2, 1, 5);
+insert into StopRoute (id, route_id, stop_id) values (3, 9, 10);
+insert into StopRoute (id, route_id, stop_id) values (4, 8, 1);
+insert into StopRoute (id, route_id, stop_id) values (5, 8, 2);
+insert into StopRoute (id, route_id, stop_id) values (6, 2, 7);
+insert into StopRoute (id, route_id, stop_id) values (7, 6, 1);
+insert into StopRoute (id, route_id, stop_id) values (8, 9, 9);
+insert into StopRoute (id, route_id, stop_id) values (9, 4, 9);
+insert into StopRoute (id, route_id, stop_id) values (10, 4, 8);

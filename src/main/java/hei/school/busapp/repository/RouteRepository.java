@@ -12,6 +12,5 @@ public interface RouteRepository {
 
     boolean addRoute(Route route);
     boolean updateRoute(long id, Route route);
-    boolean patchRoute(long id, String newRoutename);
     boolean deleteRoute(long id);
 }

@@ -39,24 +39,12 @@ public class BusLineServiceImp implements BusLineService{
         }
     }
 
+
     @Override
     public boolean updateBusLine(long id, BusLine busLine){
         try {
             if (!busLineRepositoryImp.getBusLineById ( id ).isEmpty ()){
                 busLineRepositoryImp.updateBusLine ( id, busLine );
-                return true;
-            }
-            return false;
-        } catch ( Exception e ) {
-            throw new RuntimeException ( e );
-        }
-    }
-
-    @Override
-    public boolean patchBusLine(long id, Map<String, String> newlinename){
-        try {
-            if (!busLineRepositoryImp.getBusLineById ( id ).isEmpty ()){
-                busLineRepositoryImp.patchBusLine ( id, newlinename.get ( "linename" ) );
                 return true;
             }
             return false;

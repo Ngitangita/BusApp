@@ -15,7 +15,5 @@ public interface BusLineService {
 
     boolean updateBusLine(long id, BusLine busLine);
 
-    boolean patchBusLine(long id, Map<String, String> newlinename);
-
     boolean deleteBusLine(long id);
 }

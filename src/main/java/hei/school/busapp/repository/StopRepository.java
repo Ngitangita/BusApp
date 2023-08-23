@@ -13,7 +13,5 @@ public interface StopRepository {
 
     boolean updateStop(long id, Stop stop);
 
-    boolean patchStop(long id, String newStopname);
-
     boolean deleteStop(long id);
 }

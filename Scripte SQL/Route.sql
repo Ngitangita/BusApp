@@ -1,0 +1,10 @@
+insert into Route (id, routename) values (1, 'Route 3');
+insert into Route (id, routename) values (2, 'Route 8');
+insert into Route (id, routename) values (3, 'Route 6');
+insert into Route (id, routename) values (4, 'Route 9');
+insert into Route (id, routename) values (5, 'Route 5');
+insert into Route (id, routename) values (6, 'Route 2');
+insert into Route (id, routename) values (7, 'Route 6');
+insert into Route (id, routename) values (8, 'Route 9');
+insert into Route (id, routename) values (9, 'Route 8');
+insert into Route (id, routename) values (10, 'Route 7');

@@ -2,7 +2,6 @@ package hei.school.busapp.repository;
 
 import hei.school.busapp.connection.DatabaseConfig;
 import hei.school.busapp.entity.BusLine;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -12,12 +11,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+
 @Repository
 public class BusLineRepositoryImp implements BusLineRepository{
-    PreparedStatement preparedStatement;
-    ResultSet resultSet;
-    Connection connection;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
+    private Connection connection;
+    private BusLineRouteRepository repository;
+    private StopBusLineRepository stopBusLineRepository;
+
+    public BusLineRepositoryImp(BusLineRouteRepository repository, StopBusLineRepository stopBusLineRepository){
+
+        this.repository = repository;
+        this.stopBusLineRepository = stopBusLineRepository;
+    }
 
     @Override
     public List<BusLine> getAllBusLine(){
@@ -32,8 +39,9 @@ public class BusLineRepositoryImp implements BusLineRepository{
                 busLines.add (
                         new BusLine (
                                 resultSet.getLong ( "id"),
-                                resultSet.getString ( "linenumber"),
-                                resultSet.getString ( "linename")
+                                resultSet.getString ( "lineNumber"),
+                                this.repository.findRouteWithBusLineById( resultSet.getLong ( "id" ) ),
+                                this.stopBusLineRepository.findStopWithBusLineById ( resultSet.getLong ( "id") )
                         )
                 );
             }
@@ -57,8 +65,9 @@ public class BusLineRepositoryImp implements BusLineRepository{
                 busLines.add (
                         new BusLine (
                                 resultSet.getLong ( "id"),
-                                resultSet.getString ( "linenumber"),
-                                resultSet.getString ( "linename")
+                                resultSet.getString ( "lineNumber"),
+                                this.repository.findRouteWithBusLineById( resultSet.getLong ( "id" ) ),
+                                this.stopBusLineRepository.findStopWithBusLineById ( resultSet.getLong ( "id") )
                         )
                 );
             }
@@ -70,58 +79,37 @@ public class BusLineRepositoryImp implements BusLineRepository{
 
     @Override
     public boolean addBusLine(BusLine busLine){
-       try {
-           connection = DatabaseConfig.getInstance ( ).getConnection ( );
-           preparedStatement = connection.prepareStatement (
-                   "INSERT INTO BusLine(linenumber, linename)" + "VALUES (?, ?);"
-           );
-           preparedStatement.setString ( 1, busLine.getLinenumber () );
-           preparedStatement.setString ( 2, busLine.getLinename ( ) );
-           int success = preparedStatement.executeUpdate ();
-           if (success == 1){
-               return true;
-           }else {
-               return false;
-           }
-       } catch ( SQLException e ) {
-           throw new RuntimeException ( e );
-       }
+        try {
+            connection = DatabaseConfig.getInstance ( ).getConnection ( );
+            preparedStatement = connection.prepareStatement (
+                    "INSERT INTO BusLine(lineNumber)" + "VALUES (?)"
+            );
+            preparedStatement.setString ( 1, busLine.getLinenumber ( ) );
+            int success = preparedStatement.executeUpdate ( );
+            if (success == 1){
+                return true;
+            }else {
+                return false;
+            }
+        } catch ( SQLException e ) {
+            throw new RuntimeException ( e );
+        }
     }
+
 
     @Override
     public boolean updateBusLine(long id, BusLine busLine){
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
-                    "UPDATE BusLine SET linenumber=?, linename=? WHERE id=?"
+                    "UPDATE BusLine SET lineNumber=? WHERE id=?"
             );
-            preparedStatement.setString ( 1, busLine.getLinenumber ( ) );
-            preparedStatement.setString ( 2, busLine.getLinename ( ) );
-            preparedStatement.setLong ( 3, id );
+            preparedStatement.setString ( 1, busLine.getLinenumber () );
+            preparedStatement.setLong ( 2, id );
             if (preparedStatement.executeUpdate () == 1){
                 return true;
             }
                 return false;
-        } catch ( SQLException e ) {
-            throw new RuntimeException ( e );
-        }
-    }
-
-    @Override
-    public boolean patchBusLine(long id, String newBusLinename){
-        try {
-            connection = DatabaseConfig.getInstance ( ).getConnection ( );
-            preparedStatement = connection.prepareStatement (
-                    "UPDATE BusLine set linename=? where id = ?"
-            );
-            preparedStatement.setString ( 1, newBusLinename );
-            preparedStatement.setLong ( 2, id );
-            int success = preparedStatement.executeUpdate ();
-            if (success == 1){
-                return true;
-            }else{
-                return false;
-            }
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }

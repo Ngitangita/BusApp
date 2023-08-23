@@ -3,7 +3,6 @@ package hei.school.busapp.repository;
 
 import hei.school.busapp.connection.DatabaseConfig;
 import hei.school.busapp.entity.Route;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -13,12 +12,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+
 @Repository
 public class RouteRepositoryImp implements RouteRepository{
-    PreparedStatement preparedStatement;
-    ResultSet resultSet;
-    Connection connection;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
+    private Connection connection;
+    private StopRouteRepository stopRouteRepository;
+    private BusLineRouteRepository repository;
+
+    public RouteRepositoryImp(BusLineRouteRepository repository, StopRouteRepository stopRouteRepository){
+        this.repository = repository;
+        this.stopRouteRepository = stopRouteRepository;
+    }
 
     @Override
     public List<Route> getAllRoute(){
@@ -31,7 +37,9 @@ public class RouteRepositoryImp implements RouteRepository{
                 route.add (
                         new Route (
                                 resultSet.getLong ( "id" ),
-                                resultSet.getString ( "routename" )
+                                resultSet.getString ( "routeName" ),
+                                stopRouteRepository.findStopWithRouteById(resultSet.getLong ( "id" )),
+                                repository.finBusLineWithRouteById ( resultSet.getLong ( "id") )
                         )
                 );
             }
@@ -53,7 +61,9 @@ public class RouteRepositoryImp implements RouteRepository{
                 routes.add (
                         new Route (
                                 resultSet.getLong ( "id" ),
-                                resultSet.getString ( "routename" )
+                                resultSet.getString ( "routeName" ),
+                                stopRouteRepository.findStopWithRouteById(resultSet.getLong ( "id" )),
+                                repository.finBusLineWithRouteById ( resultSet.getLong ( "id") )
                         )
                 );
             }
@@ -68,10 +78,10 @@ public class RouteRepositoryImp implements RouteRepository{
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
-                    "INSERT INTO route(routename) " +
+                    "INSERT INTO route(routeName) " +
                             "VALUES (?);"
             );
-            preparedStatement.setString ( 1, route.getRouteName ( ) );
+            preparedStatement.setString ( 1, route.getRouteName ());
             int success = preparedStatement.executeUpdate ();
             if (success == 1) {
                 return true;
@@ -89,7 +99,7 @@ public class RouteRepositoryImp implements RouteRepository{
         try{
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement =connection.prepareStatement (
-                    "UPDATE route set routename=? where id = ?"
+                    "UPDATE route set routeName=? where id = ?"
             );
             preparedStatement.setString ( 1, route.getRouteName ( ) );
             preparedStatement.setLong ( 2, id);
@@ -97,28 +107,6 @@ public class RouteRepositoryImp implements RouteRepository{
                 return true;
             }
             return false;
-        } catch ( SQLException e ){
-            e.printStackTrace ();
-            return false;
-        }
-    }
-
-
-    @Override
-    public boolean patchRoute(long id, String newRoutename){
-        try{
-            connection = DatabaseConfig.getInstance ( ).getConnection ( );
-            preparedStatement =connection.prepareStatement (
-                    "UPDATE route set routename=? where id = ?"
-            );
-            preparedStatement.setString ( 1, newRoutename );
-            preparedStatement.setLong ( 2, id);
-            int success = preparedStatement.executeUpdate ();
-            if (success == 1) {
-                return true;
-            } else {
-                return false;
-            }
         } catch ( SQLException e ){
             e.printStackTrace ();
             return false;

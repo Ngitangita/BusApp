@@ -10,7 +10,6 @@ public interface RouteService {
     List<Route> getRouteById(long id);
     boolean addRoute(Route route);
     boolean updateRoute(long id, Route route);
-    boolean patchRoute(long id, Map<String, String> newRoutename);
-    boolean deletRoute(long id);
+    boolean deleteRoute(long id);
 
 }

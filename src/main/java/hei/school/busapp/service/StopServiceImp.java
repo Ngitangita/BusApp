@@ -3,19 +3,15 @@ package hei.school.busapp.service;
 
 import hei.school.busapp.entity.Stop;
 import hei.school.busapp.repository.StopRepositoryImp;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
-@NoArgsConstructor
 @Service
 public class StopServiceImp implements StopService {
     private StopRepositoryImp stopRepositoryImp;
 
-    @Autowired
     public StopServiceImp(StopRepositoryImp stopRepositoryImp){this.stopRepositoryImp = stopRepositoryImp;}
 
     @Override
@@ -45,19 +41,6 @@ public class StopServiceImp implements StopService {
         try {
             if (!stopRepositoryImp.getStopById ( id ).isEmpty ()){
                 stopRepositoryImp.updateStop ( id, stop );
-                return true;
-            }
-            return false;
-        } catch ( Exception e ) {
-            throw new RuntimeException ( e );
-        }
-    }
-
-    @Override
-    public boolean patchStop(long id, Map<String, String> newstopname){
-        try {
-            if (!stopRepositoryImp.getStopById ( id ).isEmpty ()){
-                stopRepositoryImp.patchStop ( id, newstopname.get ( "stopname" ) );
                 return true;
             }
             return false;

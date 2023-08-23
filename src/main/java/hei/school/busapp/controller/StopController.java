@@ -3,7 +3,6 @@ package hei.school.busapp.controller;
 
 import hei.school.busapp.entity.Stop;
 import hei.school.busapp.service.StopServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.Map;
 public class StopController {
     private final StopServiceImp stopServiceImp;
 
-    @Autowired
     public StopController(StopServiceImp stopServiceImp){this.stopServiceImp = stopServiceImp;}
 
     @GetMapping("/")
@@ -44,19 +42,9 @@ public class StopController {
     public String updateStop(@PathVariable long id, @RequestBody Stop newStop){
         boolean success = stopServiceImp.updateStop ( id, newStop );
         if (success){
-            return "Stop updated successfylly";
+            return "Stop updated successfully";
         }else {
-            return "Failed to epdated stop";
-        }
-    }
-
-    @PatchMapping("/update/patch/{id}")
-    public String patchStop(@PathVariable long id, @RequestBody Map<String, String> newStop){
-        boolean success = stopServiceImp.patchStop ( id, newStop);
-        if (success){
-            return "Stop updated successfuly";
-        }else {
-            return "Failed updated Stop";
+            return "Failed to updated stop";
         }
     }
 
@@ -66,7 +54,7 @@ public class StopController {
         if (success){
             return "Stop deleted successfully";
         }else {
-            return "Failed to delete stope";
+            return "Failed to delete stop";
         }
     }
 }
