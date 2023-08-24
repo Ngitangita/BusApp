@@ -2,7 +2,6 @@ package hei.school.busapp.repository;
 
 import hei.school.busapp.connection.DatabaseConfig;
 import hei.school.busapp.entity.BusLine;
-import hei.school.busapp.entity.Route;
 import hei.school.busapp.entity.Stop;
 import org.springframework.stereotype.Repository;
 
