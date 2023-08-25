@@ -14,7 +14,7 @@ CREATE TABLE Stop (
 CREATE TABLE BusLine(
     id SERIAL PRIMARY KEY,
     lineNumber VARCHAR(10)
-)
+);
 
 
 CREATE TABLE StopRoute (

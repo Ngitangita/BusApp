@@ -18,8 +18,8 @@ public class RouteRepositoryImp implements RouteRepository{
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private Connection connection;
-    private StopRouteRepository stopRouteRepository;
-    private BusLineRouteRepository repository;
+    private final StopRouteRepository stopRouteRepository;
+    private final BusLineRouteRepository repository;
 
     public RouteRepositoryImp(BusLineRouteRepository repository, StopRouteRepository stopRouteRepository){
         this.repository = repository;
@@ -74,7 +74,7 @@ public class RouteRepositoryImp implements RouteRepository{
     }
 
     @Override
-    public boolean addRoute(Route route){
+    public void addRoute(Route route){
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
@@ -83,19 +83,13 @@ public class RouteRepositoryImp implements RouteRepository{
             );
             preparedStatement.setString ( 1, route.getRouteName ());
             int success = preparedStatement.executeUpdate ();
-            if (success == 1) {
-                return true;
-            } else {
-                return false;
-            }
         } catch ( SQLException e ){
             e.printStackTrace ();
-            return false;
         }
     }
 
     @Override
-    public boolean updateRoute(long id, Route route){
+    public void updateRoute(long id, Route route){
         try{
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement =connection.prepareStatement (
@@ -103,29 +97,21 @@ public class RouteRepositoryImp implements RouteRepository{
             );
             preparedStatement.setString ( 1, route.getRouteName ( ) );
             preparedStatement.setLong ( 2, id);
-            if (preparedStatement.executeUpdate () == 1) {
-                return true;
-            }
-            return false;
+            preparedStatement.executeUpdate ( );
         } catch ( SQLException e ){
             e.printStackTrace ();
-            return false;
         }
     }
 
     @Override
-    public boolean deleteRoute(long id){
+    public void deleteRoute(long id){
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
                     "DELETE FROM route WHERE id = ?"
             );
             preparedStatement.setLong ( 1, id );
-            if (preparedStatement.executeUpdate () == 1){
-                return true;
-            }else {
-                return false;
-            }
+            preparedStatement.executeUpdate ( );
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }

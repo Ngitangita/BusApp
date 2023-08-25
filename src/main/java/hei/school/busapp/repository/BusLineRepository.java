@@ -9,9 +9,9 @@ public interface BusLineRepository {
 
     List<BusLine> getBusLineById(long id);
 
-    boolean addBusLine(BusLine busLine);
+    void addBusLine(BusLine busLine);
 
-    boolean updateBusLine(long id, BusLine busLine);
+    void updateBusLine(long id, BusLine busLine);
 
-    boolean deleteBusLine(long id);
+    void deleteBusLine(long id);
 }

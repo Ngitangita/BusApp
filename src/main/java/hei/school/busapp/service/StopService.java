@@ -3,10 +3,10 @@ package hei.school.busapp.service;
 import hei.school.busapp.entity.Stop;
 
 import java.util.List;
-import java.util.Map;
 
 public interface StopService {
-    List<Stop> getAllStop();
+
+    List<Stop> getAllStopBusLineRoute();
 
     List<Stop> getStopById(long id);
 

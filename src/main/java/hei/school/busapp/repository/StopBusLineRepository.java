@@ -25,7 +25,7 @@ public class StopBusLineRepository {
     }
     public List<Stop> findStopWithBusLineById(long id) throws SQLException{
         List<Stop> stopsWithBusLine = new ArrayList<> (  );
-        String sql="SELECT * FROM stop as s INNER JOIN stopBusLine as sB ON sB.stop_id = s.id WHERE sB.busLine_id = ?";
+        String sql="SELECT s.* FROM stop as s INNER JOIN stopBusLine as sB ON sB.stop_id = s.id WHERE sB.busLine_id = ?";
         Connection connection = DatabaseConfig.getInstance ( ).getConnection ( );
         try (PreparedStatement preparedStatement = connection.prepareStatement ( sql )){
             preparedStatement.setLong ( 1, id );

@@ -1,25 +1,35 @@
 package hei.school.busapp.service;
 
+import hei.school.busapp.dto.RouteDTO;
 import hei.school.busapp.entity.Route;
 import hei.school.busapp.repository.RouteRepositoryImp;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class RouteServiceImp implements RouteService {
 
-    private RouteRepositoryImp routeRepositoryImp;
+    private final RouteRepositoryImp routeRepositoryImp;
 
     public RouteServiceImp(RouteRepositoryImp routeRepositoryImp){
         this.routeRepositoryImp = routeRepositoryImp;
     }
 
     @Override
-    public List<Route> getAllRoute(){
+    public List<Route> getAllRouteStopBusLine(){
         return routeRepositoryImp
                 .getAllRoute();
+    }
+
+    public List<RouteDTO> getAllRoute(){
+        List<RouteDTO> result = new ArrayList<> ();
+        List<Route> routes =  routeRepositoryImp.getAllRoute();
+        for (Route route : routes) {
+            result.add ( RouteDTO.routeFrom ( route ) );
+        }
+        return result;
     }
 
     @Override

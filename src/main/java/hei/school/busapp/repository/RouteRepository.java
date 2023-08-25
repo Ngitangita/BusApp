@@ -10,7 +10,7 @@ public interface RouteRepository {
 
     List<Route> getRouteById(long id);
 
-    boolean addRoute(Route route);
-    boolean updateRoute(long id, Route route);
-    boolean deleteRoute(long id);
+    void addRoute(Route route);
+    void updateRoute(long id, Route route);
+    void deleteRoute(long id);
 }

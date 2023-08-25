@@ -1,12 +1,12 @@
 package hei.school.busapp.controller;
 
+import hei.school.busapp.dto.BusLineDTO;
 import hei.school.busapp.entity.BusLine;
 import hei.school.busapp.service.BusLineServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -17,8 +17,14 @@ public class BusLineController {
     @Autowired
     public BusLineController(BusLineServiceImp busLineServiceImp){this.busLineServiceImp = busLineServiceImp;}
 
-    @GetMapping("/")
-    public List<BusLine> getAllBusLine(){
+    @GetMapping("/busLineStopRoute")
+    public List<BusLine> getAllBusLineStopRoute(){
+        return busLineServiceImp
+                .getAllBusLineStopRoute ();
+    }
+
+    @GetMapping("/allBusLine")
+    public List<BusLineDTO> getAllBusLine(){
         return busLineServiceImp
                 .getAllBusLine ();
     }

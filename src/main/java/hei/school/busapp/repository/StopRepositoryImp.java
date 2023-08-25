@@ -16,8 +16,8 @@ public class StopRepositoryImp implements StopRepository{
    private PreparedStatement preparedStatement;
    private ResultSet resultSet;
    private Connection connection;
-   private StopRouteRepository repository;
-   private StopBusLineRepository stopBusLineRepository;
+   private final StopRouteRepository repository;
+   private final StopBusLineRepository stopBusLineRepository;
 
     public StopRepositoryImp(StopRouteRepository repository, StopBusLineRepository stopBusLineRepository){
 
@@ -81,7 +81,7 @@ public class StopRepositoryImp implements StopRepository{
     }
 
     @Override
-    public boolean addStop(Stop stop){
+    public void addStop(Stop stop){
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
@@ -91,19 +91,14 @@ public class StopRepositoryImp implements StopRepository{
             preparedStatement.setString ( 1, stop.getStopName () );
             preparedStatement.setFloat ( 2, stop.getLongitude () );
             preparedStatement.setFloat ( 3, stop.getLatitude () );
-            int success = preparedStatement.executeUpdate ( );
-            if (success == 1){
-                return true;
-            }else {
-                return false;
-            }
+            preparedStatement.executeUpdate ( );
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }
     }
 
     @Override
-    public boolean updateStop(long id, Stop stop){
+    public void updateStop(long id, Stop stop){
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
@@ -113,28 +108,21 @@ public class StopRepositoryImp implements StopRepository{
             preparedStatement.setFloat ( 2, stop.getLongitude () );
             preparedStatement.setFloat ( 3, stop.getLatitude () );
             preparedStatement.setLong ( 4, id );
-            if (preparedStatement.executeUpdate () == 1){
-                return true;
-            }
-            return false;
+            preparedStatement.executeUpdate ( );
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }
     }
 
     @Override
-    public boolean deleteStop(long id){
+    public void deleteStop(long id){
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
                     "DELETE FROM Stop WHERE id=?"
             );
             preparedStatement.setLong ( 1, id );
-            if (preparedStatement.executeUpdate () == 1){
-                return true;
-            }else {
-                return false;
-            }
+            preparedStatement.executeUpdate ( );
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }

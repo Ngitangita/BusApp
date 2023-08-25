@@ -1,23 +1,33 @@
 package hei.school.busapp.service;
 
 
+import hei.school.busapp.dto.StopDTO;
 import hei.school.busapp.entity.Stop;
 import hei.school.busapp.repository.StopRepositoryImp;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class StopServiceImp implements StopService {
-    private StopRepositoryImp stopRepositoryImp;
+    private final StopRepositoryImp stopRepositoryImp;
 
     public StopServiceImp(StopRepositoryImp stopRepositoryImp){this.stopRepositoryImp = stopRepositoryImp;}
 
     @Override
-    public List<Stop> getAllStop(){
+    public List<Stop> getAllStopBusLineRoute(){
         return stopRepositoryImp
                 .getAllStop ();
+    }
+
+    public List<StopDTO> getAllStop(){
+        List<StopDTO> result = new ArrayList<> ();
+        List<Stop> stops = stopRepositoryImp.getAllStop ();
+        for (Stop stop : stops){
+            result.add ( StopDTO.stopFrom ( stop ) );
+        }
+        return result;
     }
 
     @Override

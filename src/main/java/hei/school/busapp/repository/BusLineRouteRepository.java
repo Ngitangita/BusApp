@@ -23,7 +23,7 @@ public class BusLineRouteRepository {
 
     public List<BusLine> finBusLineWithRouteById(long id) throws SQLException{
         List<BusLine> BusLineWithRoute = new ArrayList<> (  );
-        String sql = "SELECT * FROM busline as bl INNER JOIN buslineroute as br ON br.busline_id = bl.id WHERE br.route_id = ?";
+        String sql = "SELECT bl.* FROM busline as bl INNER JOIN buslineroute as br ON br.busline_id = bl.id WHERE br.route_id = ?";
         Connection connection = DatabaseConfig.getInstance ().getConnection ();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setLong ( 1, id );
@@ -43,7 +43,7 @@ public class BusLineRouteRepository {
     }
     public List<Route> findRouteWithBusLineById(long id) throws SQLException{
         List<Route> RouteWithBusLine = new ArrayList<> ();
-        String sql = "SELECT * FROM route as r INNER JOIN stoproute as sr ON sr.route_id = r.id WHERE sr.stop_id = ?";
+        String sql = "SELECT r.* FROM route as r INNER JOIN buslineroute as br ON br.route_id = r.id WHERE br.busline_id = ?";
         Connection connection = DatabaseConfig.getInstance ( ).getConnection ( );
         try(PreparedStatement preparedStatement = connection.prepareStatement ( sql )){
             preparedStatement.setLong ( 1, id );

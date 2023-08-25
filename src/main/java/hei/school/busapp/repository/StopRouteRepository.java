@@ -17,8 +17,8 @@ public class StopRouteRepository {
 
     private Route mapResultSetToRoute(ResultSet resultSet) throws SQLException {
         Route route = new Route (  );
-        route.setId ( resultSet.getLong ( "id" ) );
         route.setRouteName ( resultSet.getString ( "routeName" ) );
+        route.setId ( resultSet.getLong ( "id" ) );
         return route;
     }
     public List<Route> findRouteWithStopById(long id) throws SQLException{

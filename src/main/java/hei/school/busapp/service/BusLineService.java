@@ -3,11 +3,11 @@ package hei.school.busapp.service;
 import hei.school.busapp.entity.BusLine;
 
 import java.util.List;
-import java.util.Map;
 
 public interface BusLineService {
 
-    List<BusLine> getAllBusLine();
+
+    List<BusLine> getAllBusLineStopRoute();
 
     List<BusLine> getBusLineById(long id);
 

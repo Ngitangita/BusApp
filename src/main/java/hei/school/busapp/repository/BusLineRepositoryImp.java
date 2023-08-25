@@ -17,8 +17,8 @@ public class BusLineRepositoryImp implements BusLineRepository{
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
     private Connection connection;
-    private BusLineRouteRepository repository;
-    private StopBusLineRepository stopBusLineRepository;
+    private final BusLineRouteRepository repository;
+    private final StopBusLineRepository stopBusLineRepository;
 
     public BusLineRepositoryImp(BusLineRouteRepository repository, StopBusLineRepository stopBusLineRepository){
 
@@ -78,7 +78,7 @@ public class BusLineRepositoryImp implements BusLineRepository{
     }
 
     @Override
-    public boolean addBusLine(BusLine busLine){
+    public void addBusLine(BusLine busLine){
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
@@ -86,11 +86,6 @@ public class BusLineRepositoryImp implements BusLineRepository{
             );
             preparedStatement.setString ( 1, busLine.getLinenumber ( ) );
             int success = preparedStatement.executeUpdate ( );
-            if (success == 1){
-                return true;
-            }else {
-                return false;
-            }
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }
@@ -98,7 +93,7 @@ public class BusLineRepositoryImp implements BusLineRepository{
 
 
     @Override
-    public boolean updateBusLine(long id, BusLine busLine){
+    public void updateBusLine(long id, BusLine busLine){
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
@@ -106,28 +101,21 @@ public class BusLineRepositoryImp implements BusLineRepository{
             );
             preparedStatement.setString ( 1, busLine.getLinenumber () );
             preparedStatement.setLong ( 2, id );
-            if (preparedStatement.executeUpdate () == 1){
-                return true;
-            }
-                return false;
+            preparedStatement.executeUpdate ( );
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }
     }
 
     @Override
-    public boolean deleteBusLine(long id){
+    public void deleteBusLine(long id){
         try {
             connection = DatabaseConfig.getInstance ( ).getConnection ( );
             preparedStatement = connection.prepareStatement (
                     "DELETE FROM BusLine WHERE id = ?"
             );
             preparedStatement.setLong ( 1, id );
-            if (preparedStatement.executeUpdate () == 1){
-                return true;
-            }else {
-                return false;
-            }
+            preparedStatement.executeUpdate ( );
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }

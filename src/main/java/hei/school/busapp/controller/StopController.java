@@ -1,12 +1,12 @@
 package hei.school.busapp.controller;
 
 
+import hei.school.busapp.dto.StopDTO;
 import hei.school.busapp.entity.Stop;
 import hei.school.busapp.service.StopServiceImp;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -16,8 +16,14 @@ public class StopController {
 
     public StopController(StopServiceImp stopServiceImp){this.stopServiceImp = stopServiceImp;}
 
-    @GetMapping("/")
-    public List<Stop> getAllStop(){
+    @GetMapping("/stopBusLineRoute")
+    public List<Stop> getAllStopBusLineRoute(){
+        return stopServiceImp
+                .getAllStopBusLineRoute();
+    }
+
+    @GetMapping("/allStop")
+    public List<StopDTO> getAllStop(){
         return stopServiceImp
                 .getAllStop ();
     }
