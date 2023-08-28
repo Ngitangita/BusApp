@@ -1,5 +1,8 @@
 # BusApp
 
-## Modelisation de la base de donnée (MCD)
+## Note
+    - A bus route or a bus can have at least two stops: the starting point and the destination.
 
-![ BusApp MCD](./Scripte%20SQL/MCD.png "BusApp")
+## Modelisation de la base de donnee (MCD)
+
+![ BusApp MCD](./Scripte_SQL/MCD.png "BusApp")

@@ -85,7 +85,7 @@ public class BusLineRepositoryImp implements BusLineRepository{
                     "INSERT INTO BusLine(lineNumber)" + "VALUES (?)"
             );
             preparedStatement.setString ( 1, busLine.getLinenumber ( ) );
-            int success = preparedStatement.executeUpdate ( );
+            preparedStatement.executeUpdate (  );
         } catch ( SQLException e ) {
             throw new RuntimeException ( e );
         }

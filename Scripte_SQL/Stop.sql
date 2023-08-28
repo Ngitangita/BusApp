@@ -1,0 +1,10 @@
+insert into Stop (id, stopname, longitude, latitude) values (1, 'Ankatsou-Analamahitsy-Pulman-Ambohimanarina-Andranomena', 74.17, 53.49);
+insert into Stop (id, stopname, longitude, latitude) values (2, 'Soavimasondro-Ivandry-Ankorondrano-Antanimena Ambony-Analakely', 58.23, 20.97);
+insert into Stop (id, stopname, longitude, latitude) values (3, 'Anosizao-67h-Mathep-Metéo', 97.21, 64.45);
+insert into Stop (id, stopname, longitude, latitude) values (4, 'Ambohimirahavay-Pulman-Parking Nihavana-67h', 3.06, 80.67);
+insert into Stop (id, stopname, longitude, latitude) values (5, 'Anosy-Andoharanofotsy', 56.49, 33.93);
+insert into Stop (id, stopname, longitude, latitude) values (6, 'Fasankarany-Andohatapenaka', 12.95, 45.87);
+insert into Stop (id, stopname, longitude, latitude) values (7, 'Behoririka-Andravoahangy-Ampasampito-Ambohimangakely-Mada-Fasika', 32.5, 84.56);
+insert into Stop (id, stopname, longitude, latitude) values (8, 'Andoharanofotsy-Anosy-Andohatapenaka-Talatamaty', 91.16, 11.5);
+insert into Stop (id, stopname, longitude, latitude) values (9, 'Analamahitsy-Pullman-Ivandry-Ankorondrano', 66.32, 86.25);
+insert into Stop (id, stopname, longitude, latitude) values (10, 'Anosizato-Vontovorona', 60.29, 24.5);

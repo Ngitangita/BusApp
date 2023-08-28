@@ -82,7 +82,7 @@ public class RouteRepositoryImp implements RouteRepository{
                             "VALUES (?);"
             );
             preparedStatement.setString ( 1, route.getRouteName ());
-            int success = preparedStatement.executeUpdate ();
+            preparedStatement.executeUpdate (  );
         } catch ( SQLException e ){
             e.printStackTrace ();
         }
