@@ -1,0 +1,393 @@
+openapi: 3.0.3
+info:
+  title: BusApp
+  description: |-
+    Mon STD22047
+  version: 1.2.0
+servers:
+  - url: https://STD22047.com
+
+tags:
+  - name: stop
+    description: Operations about stops
+  - name: route
+    description: Operations about routes
+  - name: busLine
+    description: Operations about busLines
+
+paths:
+  /stop/get/{id}:
+    get:
+      tags:
+        - stop
+      summary: Get teacher by stop id
+      description: ''
+      operationId: getStop
+      parameters:
+        - name: id
+          in: path
+          description: 'The name that needs to be fetched. Use stop1 for testing. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stop'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Stop'
+        '400':
+          description: Invalid stopId supplied
+        '404':
+          description: Stop not found
+  /stop/add:
+    post:
+      tags:
+        - stop
+      summary: Create stop
+      description: This can only be done by the logged in stop.
+      operationId: createStop
+      requestBody:
+        description: Created stop object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Stop'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Stop'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Stop'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stop'
+            application/xml:
+              schema:
+               $ref: '#/components/schemas/Stop'
+
+  /stop/update/put/{id}:
+    put:
+      tags:
+        - stop
+      summary: Update stop
+      description: This can only be done by the logged in stop.
+      operationId: updateStopById
+      parameters:
+        - name: id
+          in: path
+          description: name that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent stop in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Stop'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Stop'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Stop'
+      responses:
+        default:
+          description: successful operation
+  /stop/delete/{id}:
+    delete:
+      tags:
+        - stop
+      summary: Delete stop
+      description: This can only be done by the logged in stop.
+      operationId: deleteStopByID
+      parameters:
+        - name: id
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid stopName supplied
+        '404':
+          description: Stop not found
+
+  /route/get/{id}:
+    get:
+      tags:
+        - route
+      summary: Get route by route id
+      description: ''
+      operationId: getRoute
+      parameters:
+        - name: id
+          in: path
+          description: 'The name that needs to be fetched. Use route1 for testing. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Route'
+        '400':
+          description: Invalid routeId supplied
+        '404':
+          description: Stop not found
+  /route/add:
+    post:
+      tags:
+        - route
+      summary: Create route
+      description: This can only be done by the logged in route.
+      operationId: createRoutes
+      requestBody:
+        description: Created route object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Route'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Route'
+
+  /route/update/{id}:
+    put:
+      tags:
+        - route
+      summary: Update route
+      description: This can only be done by the logged in route.
+      operationId: updateRoute
+      parameters:
+        - name: id
+          in: path
+          description: name that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent route in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Route'
+      responses:
+        default:
+          description: successful operation
+  /route/delete/{id}:
+    delete:
+      tags:
+        - route
+      summary: Delete route
+      description: This can only be done by the logged in route.
+      operationId: deleteRoute
+      parameters:
+        - name: id
+          in: path
+          description: The id that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid routeName supplied
+        '404':
+          description: Id not found
+
+
+  /busLine/get/{id}:
+    get:
+      tags:
+        - busLine
+      summary: Get route by busLine id
+      description: ''
+      operationId: getBusLine
+      parameters:
+        - name: id
+          in: path
+          description: 'The name that needs to be fetched. Use busLine1 for testing. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusLine'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BusLine'
+        '400':
+          description: Invalid busLineId supplied
+        '404':
+          description: BusLine not found
+  /busLine/add:
+    post:
+      tags:
+        - busLine
+      summary: Create busLine
+      description: This can only be done by the logged in busLine.
+      operationId: createBusLine
+      requestBody:
+        description: Created busLine object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusLine'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/BusLine'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BusLine'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusLine'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BusLine'
+
+  /busLine/update/{id}:
+    put:
+      tags:
+        - busLine
+      summary: Update busLine
+      description: This can only be done by the logged in busLine.
+      operationId: updateBusLine
+      parameters:
+        - name: id
+          in: path
+          description: name that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent busLine in the busLine
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusLine'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Route'
+      responses:
+        default:
+          description: successful operation
+  /busLine/delete/{id}:
+    delete:
+      tags:
+        - busLine
+      summary: Delete busLine
+      description: This can only be done by the logged in busLine.
+      operationId: deleteBusLine
+      parameters:
+        - name: id
+          in: path
+          description: The id that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid lineNumber supplied
+        '404':
+          description: Id not found
+
+
+components:
+  schemas:
+    Stop:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 01
+        stopName:
+          type: string
+          example: Ivandry-Ankorondrano-Analakely
+        longitude:
+          type: number
+          example: 56.93
+        latitude:
+          type: number
+          example: 23.45
+      xml:
+        name: stop
+
+    Route:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 01
+        routeName:
+          type: string
+          format: int64
+          example: Route 1
+      xml:
+        name: route
+
+    BusLine:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 01
+        lineNumber:
+          type: string
+          format: int64
+          example: 194/E/162/A
+      xml:
+        name: busLine
+
+
+
+

@@ -1,0 +1,285 @@
+openapi: 3.0.3
+info:
+  description: Mon STD22047
+  title: Onbourding API
+  version: 1.2.0
+servers:
+- url: https://STD22047.com
+tags:
+- description: Operations about teacher
+  name: teacher
+- description: Operations about students
+  name: students
+paths:
+  /teacher:
+    post:
+      description: This can only be done by the logged in teacher.
+      operationId: createTeacher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Teacher'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Teacher'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Teacher'
+        description: Created teacher object
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+          description: successful operation
+      summary: Create teacher
+      tags:
+      - teacher
+      x-contentType: application/json
+      x-accepts: application/json
+  /teacher/{Toky}:
+    get:
+      operationId: getTeacherByName
+      parameters:
+      - description: 'The name that needs to be fetched. Use teacher1 for testing. '
+        explode: false
+        in: path
+        name: Toky
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+          description: successful operation
+        "400":
+          description: Invalid teachername supplied
+        "404":
+          description: Teacher not found
+      summary: Get teacher by teacher name
+      tags:
+      - teacher
+      x-accepts: application/json
+  /students:
+    post:
+      description: This can only be done by the logged in students.
+      operationId: createStudents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Student'
+        description: Created students object
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: successful operation
+      summary: Create students
+      tags:
+      - students
+      x-contentType: application/json
+      x-accepts: application/json
+  /students/{Elisé}:
+    delete:
+      description: This can only be done by the logged in students.
+      operationId: deleteStudents
+      parameters:
+      - description: The name that needs to be deleted
+        explode: false
+        in: path
+        name: Elisé
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          description: Invalid studentsname supplied
+        "404":
+          description: Students not found
+      summary: Delete students
+      tags:
+      - students
+      x-accepts: application/json
+    get:
+      operationId: getStudentsByName
+      parameters:
+      - description: 'The name that needs to be fetched. Use students1 for testing. '
+        explode: false
+        in: path
+        name: Elisé
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: successful operation
+        "400":
+          description: Invalid studentsname supplied
+        "404":
+          description: Students not found
+      summary: Get students by students name
+      tags:
+      - students
+      x-accepts: application/json
+    put:
+      description: This can only be done by the logged in students.
+      operationId: updateStudents
+      parameters:
+      - description: name that need to be deleted
+        explode: false
+        in: path
+        name: Elisé
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Student'
+        description: Update an existent students in the store
+      responses:
+        default:
+          description: successful operation
+      summary: Update students
+      tags:
+      - students
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    Teacher:
+      example:
+        firstName: Ramarozaka
+        lastName: Toky
+        password: "12345"
+        subjectsTaught:
+        - '[ - PROG1, - PROG2,  - Web1 , - Donnée1]'
+        - '[ - PROG1, - PROG2,  - Web1 , - Donnée1]'
+        teacherStatus: Enseignant Permanent
+        teachername: Tokimahery RAMAROZAKA
+        phone: 034 13 582 27
+        id: 1
+        email: toky@hei.school
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        teachername:
+          example: Tokimahery RAMAROZAKA
+          type: string
+        firstName:
+          example: Ramarozaka
+          type: string
+        lastName:
+          example: Toky
+          type: string
+        email:
+          example: toky@hei.school
+          type: string
+        password:
+          example: "12345"
+          type: string
+        phone:
+          example: 034 13 582 27
+          type: string
+        teacherStatus:
+          description: Teacher Status
+          example: Enseignant Permanent
+          format: int32
+          type: string
+        subjectsTaught:
+          items:
+            example: '[ - PROG1, - PROG2,  - Web1 , - Donnée1]'
+            type: string
+          type: array
+      type: object
+      xml:
+        name: teacher
+    Student:
+      example:
+        firstName: RAKOTONDRARIVO
+        lastName: Florentino Elisé
+        School: HEI
+        password: Florentino02*
+        Address: Soavimasoandro
+        phone: 038 97 165 55
+        Birthday: 2002-07-11T00:00:00.000+0000
+        id: 22047
+        email: hei.elise.3@gmail.com
+      properties:
+        id:
+          example: 22047
+          format: int64
+          type: integer
+        firstName:
+          example: RAKOTONDRARIVO
+          format: int64
+          type: string
+        lastName:
+          example: Florentino Elisé
+          type: string
+        Birthday:
+          example: 2002-07-11
+          format: date
+          type: string
+        Address:
+          example: Soavimasoandro
+          type: string
+        School:
+          example: HEI
+          type: string
+        email:
+          example: hei.elise.3@gmail.com
+          type: string
+        password:
+          example: Florentino02*
+          type: string
+        phone:
+          example: 038 97 165 55
+          type: string
+      type: object
+      xml:
+        name: student
+
