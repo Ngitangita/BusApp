@@ -1,8 +1,8 @@
 # openapi-java-client
 
-Onbourding API
+BusApp
 - API version: 1.2.0
-  - Build date: 2023-08-30T12:41:39.520470600+03:00[Asia/Amman]
+  - Build date: 2023-08-30T17:48:01.502325900+03:00[Asia/Amman]
 
 Mon STD22047
 
@@ -77,20 +77,20 @@ import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.Configuration;
 import org.openapitools.client.models.*;
-import org.openapitools.client.api.StudentsApi;
+import org.openapitools.client.api.BusLineApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://STD22047.com");
 
-    StudentsApi apiInstance = new StudentsApi(defaultClient);
-    Student student = new Student(); // Student | Created students object
+    BusLineApi apiInstance = new BusLineApi(defaultClient);
+    BusLine busLine = new BusLine(); // BusLine | Created busLine object
     try {
-      Student result = apiInstance.createStudents(student);
+      BusLine result = apiInstance.createBusLine(busLine);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling StudentsApi#createStudents");
+      System.err.println("Exception when calling BusLineApi#createBusLine");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -107,18 +107,25 @@ All URIs are relative to *https://STD22047.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*StudentsApi* | [**createStudents**](docs/StudentsApi.md#createStudents) | **POST** /students | Create students
-*StudentsApi* | [**deleteStudents**](docs/StudentsApi.md#deleteStudents) | **DELETE** /students/{Elisé} | Delete students
-*StudentsApi* | [**getStudentsByName**](docs/StudentsApi.md#getStudentsByName) | **GET** /students/{Elisé} | Get students by students name
-*StudentsApi* | [**updateStudents**](docs/StudentsApi.md#updateStudents) | **PUT** /students/{Elisé} | Update students
-*TeacherApi* | [**createTeacher**](docs/TeacherApi.md#createTeacher) | **POST** /teacher | Create teacher
-*TeacherApi* | [**getTeacherByName**](docs/TeacherApi.md#getTeacherByName) | **GET** /teacher/{Toky} | Get teacher by teacher name
+*BusLineApi* | [**createBusLine**](docs/BusLineApi.md#createBusLine) | **POST** /busLine/add | Create busLine
+*BusLineApi* | [**deleteBusLine**](docs/BusLineApi.md#deleteBusLine) | **DELETE** /busLine/delete/{id} | Delete busLine
+*BusLineApi* | [**getBusLine**](docs/BusLineApi.md#getBusLine) | **GET** /busLine/get/{id} | Get route by busLine id
+*BusLineApi* | [**updateBusLine**](docs/BusLineApi.md#updateBusLine) | **PUT** /busLine/update/{id} | Update busLine
+*RouteApi* | [**createRoutes**](docs/RouteApi.md#createRoutes) | **POST** /route/add | Create route
+*RouteApi* | [**deleteRoute**](docs/RouteApi.md#deleteRoute) | **DELETE** /route/delete/{id} | Delete route
+*RouteApi* | [**getRoute**](docs/RouteApi.md#getRoute) | **GET** /route/get/{id} | Get route by route id
+*RouteApi* | [**updateRoute**](docs/RouteApi.md#updateRoute) | **PUT** /route/update/{id} | Update route
+*StopApi* | [**createStop**](docs/StopApi.md#createStop) | **POST** /stop/add | Create stop
+*StopApi* | [**deleteStopByID**](docs/StopApi.md#deleteStopByID) | **DELETE** /stop/delete/{id} | Delete stop
+*StopApi* | [**getStop**](docs/StopApi.md#getStop) | **GET** /stop/get/{id} | Get teacher by stop id
+*StopApi* | [**updateStopById**](docs/StopApi.md#updateStopById) | **PUT** /stop/update/put/{id} | Update stop
 
 
 ## Documentation for Models
 
- - [Student](docs/Student.md)
- - [Teacher](docs/Teacher.md)
+ - [BusLine](docs/BusLine.md)
+ - [Route](docs/Route.md)
+ - [Stop](docs/Stop.md)
 
 
 ## Documentation for Authorization

@@ -1,5 +1,5 @@
 /*
- * Onbourding API
+ * BusApp
  * Mon STD22047
  *
  * The version of the OpenAPI document: 1.2.0
@@ -13,7 +13,7 @@
 
 package org.openapitools.client;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-30T12:41:39.520470600+03:00[Asia/Amman]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-30T17:48:01.502325900+03:00[Asia/Amman]")
 public class Pair {
     private String name = "";
     private String value = "";

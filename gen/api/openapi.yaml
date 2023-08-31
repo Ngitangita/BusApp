@@ -1,55 +1,26 @@
 openapi: 3.0.3
 info:
   description: Mon STD22047
-  title: Onbourding API
+  title: BusApp
   version: 1.2.0
 servers:
 - url: https://STD22047.com
 tags:
-- description: Operations about teacher
-  name: teacher
-- description: Operations about students
-  name: students
+- description: Operations about stops
+  name: stop
+- description: Operations about routes
+  name: route
+- description: Operations about busLines
+  name: busLine
 paths:
-  /teacher:
-    post:
-      description: This can only be done by the logged in teacher.
-      operationId: createTeacher
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Teacher'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Teacher'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Teacher'
-        description: Created teacher object
-      responses:
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Teacher'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Teacher'
-          description: successful operation
-      summary: Create teacher
-      tags:
-      - teacher
-      x-contentType: application/json
-      x-accepts: application/json
-  /teacher/{Toky}:
+  /stop/get/{id}:
     get:
-      operationId: getTeacherByName
+      operationId: getStop
       parameters:
-      - description: 'The name that needs to be fetched. Use teacher1 for testing. '
+      - description: 'The name that needs to be fetched. Use stop1 for testing. '
         explode: false
         in: path
-        name: Toky
+        name: id
         required: true
         schema:
           type: string
@@ -59,109 +30,59 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Teacher'
+                $ref: '#/components/schemas/Stop'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Teacher'
+                $ref: '#/components/schemas/Stop'
           description: successful operation
         "400":
-          description: Invalid teachername supplied
+          description: Invalid stopId supplied
         "404":
-          description: Teacher not found
-      summary: Get teacher by teacher name
+          description: Stop not found
+      summary: Get teacher by stop id
       tags:
-      - teacher
+      - stop
       x-accepts: application/json
-  /students:
+  /stop/add:
     post:
-      description: This can only be done by the logged in students.
-      operationId: createStudents
+      description: This can only be done by the logged in stop.
+      operationId: createStop
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Student'
+              $ref: '#/components/schemas/Stop'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Student'
+              $ref: '#/components/schemas/Stop'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Student'
-        description: Created students object
+              $ref: '#/components/schemas/Stop'
+        description: Created stop object
       responses:
         default:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Student'
+                $ref: '#/components/schemas/Stop'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Student'
+                $ref: '#/components/schemas/Stop'
           description: successful operation
-      summary: Create students
+      summary: Create stop
       tags:
-      - students
+      - stop
       x-contentType: application/json
       x-accepts: application/json
-  /students/{Elisé}:
-    delete:
-      description: This can only be done by the logged in students.
-      operationId: deleteStudents
-      parameters:
-      - description: The name that needs to be deleted
-        explode: false
-        in: path
-        name: Elisé
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "400":
-          description: Invalid studentsname supplied
-        "404":
-          description: Students not found
-      summary: Delete students
-      tags:
-      - students
-      x-accepts: application/json
-    get:
-      operationId: getStudentsByName
-      parameters:
-      - description: 'The name that needs to be fetched. Use students1 for testing. '
-        explode: false
-        in: path
-        name: Elisé
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Student'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Student'
-          description: successful operation
-        "400":
-          description: Invalid studentsname supplied
-        "404":
-          description: Students not found
-      summary: Get students by students name
-      tags:
-      - students
-      x-accepts: application/json
+  /stop/update/put/{id}:
     put:
-      description: This can only be done by the logged in students.
-      operationId: updateStudents
+      description: This can only be done by the logged in stop.
+      operationId: updateStopById
       parameters:
       - description: name that need to be deleted
         explode: false
         in: path
-        name: Elisé
+        name: id
         required: true
         schema:
           type: string
@@ -170,116 +91,331 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Student'
+              $ref: '#/components/schemas/Stop'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Student'
+              $ref: '#/components/schemas/Stop'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Student'
-        description: Update an existent students in the store
+              $ref: '#/components/schemas/Stop'
+        description: Update an existent stop in the store
       responses:
         default:
           description: successful operation
-      summary: Update students
+      summary: Update stop
       tags:
-      - students
+      - stop
       x-contentType: application/json
+      x-accepts: application/json
+  /stop/delete/{id}:
+    delete:
+      description: This can only be done by the logged in stop.
+      operationId: deleteStopByID
+      parameters:
+      - description: The name that needs to be deleted
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          description: Invalid stopName supplied
+        "404":
+          description: Stop not found
+      summary: Delete stop
+      tags:
+      - stop
+      x-accepts: application/json
+  /route/get/{id}:
+    get:
+      operationId: getRoute
+      parameters:
+      - description: 'The name that needs to be fetched. Use route1 for testing. '
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Route'
+          description: successful operation
+        "400":
+          description: Invalid routeId supplied
+        "404":
+          description: Stop not found
+      summary: Get route by route id
+      tags:
+      - route
+      x-accepts: application/json
+  /route/add:
+    post:
+      description: This can only be done by the logged in route.
+      operationId: createRoutes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Route'
+        description: Created route object
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Route'
+          description: successful operation
+      summary: Create route
+      tags:
+      - route
+      x-contentType: application/json
+      x-accepts: application/json
+  /route/update/{id}:
+    put:
+      description: This can only be done by the logged in route.
+      operationId: updateRoute
+      parameters:
+      - description: name that need to be deleted
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Route'
+        description: Update an existent route in the store
+      responses:
+        default:
+          description: successful operation
+      summary: Update route
+      tags:
+      - route
+      x-contentType: application/json
+      x-accepts: application/json
+  /route/delete/{id}:
+    delete:
+      description: This can only be done by the logged in route.
+      operationId: deleteRoute
+      parameters:
+      - description: The id that needs to be deleted
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          description: Invalid routeName supplied
+        "404":
+          description: Id not found
+      summary: Delete route
+      tags:
+      - route
+      x-accepts: application/json
+  /busLine/get/{id}:
+    get:
+      operationId: getBusLine
+      parameters:
+      - description: 'The name that needs to be fetched. Use busLine1 for testing. '
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusLine'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BusLine'
+          description: successful operation
+        "400":
+          description: Invalid busLineId supplied
+        "404":
+          description: BusLine not found
+      summary: Get route by busLine id
+      tags:
+      - busLine
+      x-accepts: application/json
+  /busLine/add:
+    post:
+      description: This can only be done by the logged in busLine.
+      operationId: createBusLine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusLine'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/BusLine'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BusLine'
+        description: Created busLine object
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusLine'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BusLine'
+          description: successful operation
+      summary: Create busLine
+      tags:
+      - busLine
+      x-contentType: application/json
+      x-accepts: application/json
+  /busLine/update/{id}:
+    put:
+      description: This can only be done by the logged in busLine.
+      operationId: updateBusLine
+      parameters:
+      - description: name that need to be deleted
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusLine'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Route'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Route'
+        description: Update an existent busLine in the busLine
+      responses:
+        default:
+          description: successful operation
+      summary: Update busLine
+      tags:
+      - busLine
+      x-contentType: application/json
+      x-accepts: application/json
+  /busLine/delete/{id}:
+    delete:
+      description: This can only be done by the logged in busLine.
+      operationId: deleteBusLine
+      parameters:
+      - description: The id that needs to be deleted
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "400":
+          description: Invalid lineNumber supplied
+        "404":
+          description: Id not found
+      summary: Delete busLine
+      tags:
+      - busLine
       x-accepts: application/json
 components:
   schemas:
-    Teacher:
+    Stop:
       example:
-        firstName: Ramarozaka
-        lastName: Toky
-        password: "12345"
-        subjectsTaught:
-        - '[ - PROG1, - PROG2,  - Web1 , - Donnée1]'
-        - '[ - PROG1, - PROG2,  - Web1 , - Donnée1]'
-        teacherStatus: Enseignant Permanent
-        teachername: Tokimahery RAMAROZAKA
-        phone: 034 13 582 27
+        latitude: 23.45
         id: 1
-        email: toky@hei.school
+        stopName: Ivandry-Ankorondrano-Analakely
+        longitude: 56.93
       properties:
         id:
           example: 1
           format: int64
           type: integer
-        teachername:
-          example: Tokimahery RAMAROZAKA
+        stopName:
+          example: Ivandry-Ankorondrano-Analakely
           type: string
-        firstName:
-          example: Ramarozaka
-          type: string
-        lastName:
-          example: Toky
-          type: string
-        email:
-          example: toky@hei.school
-          type: string
-        password:
-          example: "12345"
-          type: string
-        phone:
-          example: 034 13 582 27
-          type: string
-        teacherStatus:
-          description: Teacher Status
-          example: Enseignant Permanent
-          format: int32
-          type: string
-        subjectsTaught:
-          items:
-            example: '[ - PROG1, - PROG2,  - Web1 , - Donnée1]'
-            type: string
-          type: array
+        longitude:
+          example: 56.93
+          type: number
+        latitude:
+          example: 23.45
+          type: number
       type: object
       xml:
-        name: teacher
-    Student:
+        name: stop
+    Route:
       example:
-        firstName: RAKOTONDRARIVO
-        lastName: Florentino Elisé
-        School: HEI
-        password: Florentino02*
-        Address: Soavimasoandro
-        phone: 038 97 165 55
-        Birthday: 2002-07-11T00:00:00.000+0000
-        id: 22047
-        email: hei.elise.3@gmail.com
+        id: 1
+        routeName: Route 1
       properties:
         id:
-          example: 22047
+          example: 1
           format: int64
           type: integer
-        firstName:
-          example: RAKOTONDRARIVO
+        routeName:
+          example: Route 1
           format: int64
-          type: string
-        lastName:
-          example: Florentino Elisé
-          type: string
-        Birthday:
-          example: 2002-07-11
-          format: date
-          type: string
-        Address:
-          example: Soavimasoandro
-          type: string
-        School:
-          example: HEI
-          type: string
-        email:
-          example: hei.elise.3@gmail.com
-          type: string
-        password:
-          example: Florentino02*
-          type: string
-        phone:
-          example: 038 97 165 55
           type: string
       type: object
       xml:
-        name: student
+        name: route
+    BusLine:
+      example:
+        id: 1
+        lineNumber: 194/E/162/A
+      properties:
+        id:
+          example: 1
+          format: int64
+          type: integer
+        lineNumber:
+          example: 194/E/162/A
+          format: int64
+          type: string
+      type: object
+      xml:
+        name: busLine
 
